@@ -5,7 +5,8 @@ import robocode.*;
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
 /**
- * RamBeater - a robot by (your name here)
+ * RamBeater - a robot by Gage Vander Clay & Mitch Couturier
+ * POOOOOOOOP
  */
 public class RamBeater extends Robot
 {
