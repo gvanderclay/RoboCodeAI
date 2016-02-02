@@ -11,18 +11,20 @@ import java.util.Random;
  */
 public class RamBeater extends Robot
 {
+
+
 	Random rn;
 	int color;
 	/**
 	 * run: RamBeater's default behavior
 	 */
 	public void run() {
+		findClosestCorner();
 		// Initialization of the robot should be put here
 		rn = new Random();
 		color = 0;
 		// After trying out your robot, try uncommenting the import at the top,
 		// and the next line:
-
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
 		// Robot main loop
@@ -95,5 +97,21 @@ public class RamBeater extends Robot
 	public void onHitWall(HitWallEvent e) {
 		// Replace the next line with any behavior you would like
 		back(20);
-	}	
+	}
+
+	private void findClosestCorner(){
+		double xCoordinate = getX();
+		double yCoordinate = getY();
+		double arenaWidth = getBattleFieldWidth();
+		double arenaHeight = getBattleFieldHeight();
+		double xDestination = 63;
+		double yDestination = 63;
+		if(xCoordinate >= arenaWidth / 2){
+			xDestination = arenaWidth - 63;
+		}
+		if(yCoordinate >= arenaHeight /2){
+			yDestination = arenaHeight - 63;
+		}
+
+	}
 }
