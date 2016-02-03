@@ -17,8 +17,8 @@ public class RamBeater extends Robot
 
 	private final int DISTANCE_FROM_WALL = 100;
 	boolean clockwise;
-	int previousX;
-	int previousY;
+	double previousX;
+	double previousY;
 
 	Random rn;
 	int color;
