@@ -102,6 +102,26 @@ public class RamBeater extends Robot
 		back(20);
 	}
 
+	public void goClockWise(){
+		double x = getX();
+		double y = getY();
+		if(x == DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
+			goTo(DISTANCE_FROM_WALL, getBattleFieldHeight() - DISTANCE_FROM_WALL);
+		}
+		if(x == DISTANCE_FROM_WALL &&
+				y == getBattleFieldHeight() - DISTANCE_FROM_WALL){
+			goTo(getBattleFieldWidth() - DISTANCE_FROM_WALL,
+					getBattleFieldHeight() - DISTANCE_FROM_WALL);
+		}
+		if(x == getBattleFieldWidth() - DISTANCE_FROM_WALL &&
+				y == getBattleFieldHeight() - DISTANCE_FROM_WALL){
+			goTo(getBattleFieldWidth() - DISTANCE_FROM_WALL,DISTANCE_FROM_WALL);
+		}
+		if(x == getBattleFieldWidth() - DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
+			goTo(DISTANCE_FROM_WALL, DISTANCE_FROM_WALL);
+		}
+	}
+
 	/*
 	 * Finds the corner the robot is closest to and moves there
 	 */
@@ -123,6 +143,7 @@ public class RamBeater extends Robot
 		goTo(xDestination,yDestination);
 		System.out.println("newcurrent: " + getX() + "," + getY());
 	}
+
 
 /*	private void goTo(double x, double y) {
 		double a;
