@@ -114,6 +114,7 @@ public class RamBeater extends Robot
 		back(20);
 	}
 
+
 	public void goClockWise(){
 		int x = (int) getX();
 		x = roundToNearestHundred(x);
@@ -137,6 +138,33 @@ public class RamBeater extends Robot
 			goTo(DISTANCE_FROM_WALL, DISTANCE_FROM_WALL);
 		}
 	}
+
+
+	public void goCounterClockWise(){
+		int x = (int) getX();
+		x = roundToNearestHundred(x);
+		int y = (int) getY();
+		y = roundToNearestHundred(y);
+		System.out.println("Ayy: " + x + "," + y);
+
+		if(x == DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
+			goTo(getBattleFieldWidth() - DISTANCE_FROM_WALL, DISTANCE_FROM_WALL);
+		}
+		if(x == DISTANCE_FROM_WALL &&
+				y == getBattleFieldHeight() - DISTANCE_FROM_WALL){
+			goTo(DISTANCE_FROM_WALL, DISTANCE_FROM_WALL);
+		}
+		if(x == getBattleFieldWidth() - DISTANCE_FROM_WALL &&
+				y == getBattleFieldHeight() - DISTANCE_FROM_WALL){
+			goTo(DISTANCE_FROM_WALL,
+					getBattleFieldHeight() - DISTANCE_FROM_WALL);
+		}
+		if(x == getBattleFieldWidth() - DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
+			goTo(getBattleFieldWidth() - DISTANCE_FROM_WALL,
+					getBattleFieldHeight() - DISTANCE_FROM_WALL);
+		}
+	}
+
 
 	public int roundToNearestHundred(int n){
 		return (n + 50) / 100 * 100;
