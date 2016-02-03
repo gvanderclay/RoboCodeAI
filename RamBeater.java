@@ -16,6 +16,7 @@ public class RamBeater extends Robot
 {
 
 	private final int DISTANCE_FROM_WALL = 100;
+	boolean clockwise;
 
 	Random rn;
 	int color;
@@ -24,6 +25,7 @@ public class RamBeater extends Robot
 	 */
 	public void run() {
 		findClosestCorner();
+		clockwise = true;
 		// Initialization of the robot should be put here
 		rn = new Random();
 		color = 0;
@@ -84,6 +86,13 @@ public class RamBeater extends Robot
 
 
 		//scan();
+	}
+	
+	public void HitRobotEvent(ScannedRobotEvent e){
+		if(clockwise)
+			clockwise = false;
+		else
+			clockwise = true;
 	}
 
 	/**
