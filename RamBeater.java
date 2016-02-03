@@ -9,9 +9,13 @@ import java.util.Random;
  * RamBeater 
 * @author: Gage Vander Clay & Mitch Couturier
  */
+
+
+
 public class RamBeater extends Robot
 {
 
+	private final int DISTANCE_FROM_WALL = 100;
 
 	Random rn;
 	int color;
@@ -106,22 +110,35 @@ public class RamBeater extends Robot
 		double yCoordinate = getY();
 		double arenaWidth = getBattleFieldWidth();
 		double arenaHeight = getBattleFieldHeight();
-		double xDestination = 63;
-		double yDestination = 63;
+		double xDestination = DISTANCE_FROM_WALL;
+		double yDestination = DISTANCE_FROM_WALL;
 		if(xCoordinate >= arenaWidth / 2){
-			xDestination = arenaWidth - 63;
+			xDestination = arenaWidth - DISTANCE_FROM_WALL;
 		}
 		if(yCoordinate >= arenaHeight /2){
-			yDestination = arenaHeight - 63;
+			yDestination = arenaHeight - DISTANCE_FROM_WALL;
 		}
+		System.out.println("current: " + xCoordinate + "," + yCoordinate);
+		System.out.println("destination: " + xDestination + "," + yDestination);
 		goTo(xDestination,yDestination);
+		System.out.println("newcurrent: " + getX() + "," + getY());
 	}
-	
-private void goTo(double x, double y) {
-    double a;
-    turnRight(Math.tan(
-        a = Math.atan2(x -= getX(), y -= getY()) 
-              - (getHeading() * (Math.PI / 180))) * (180 / Math.PI));
-    ahead(Math.hypot(x, y) * Math.cos(a));
-}
+
+/*	private void goTo(double x, double y) {
+		double a;
+		turnRight(Math.tan(
+			a = Math.atan2(x -= getX(), y -= getY())
+				  - (getHeading() * (Math.PI / 180))) * (180 / Math.PI));
+		ahead(Math.hypot(x, y) * Math.cos(a));
+	}*/
+
+	private void goTo(double destinationX, double destinationY) {
+		destinationX -= getX();
+		destinationY -= getY();
+		double angle = robocode.util.Utils.normalRelativeAngle(Math.atan2(destinationX, destinationY) - Math.toRadians(getHeading()) );
+		double turnAngle = Math.atan(Math.tan(angle));
+
+		turnRight(Math.toDegrees(turnAngle));
+		ahead(Math.hypot(destinationX, destinationY) * (angle == turnAngle ? 1 : -1));
+	}
 }
