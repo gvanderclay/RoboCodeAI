@@ -17,6 +17,8 @@ public class RamBeater extends Robot
 
 	private final int DISTANCE_FROM_WALL = 100;
 	boolean clockwise;
+	int previousX;
+	int previousY;
 
 	Random rn;
 	int color;
@@ -95,6 +97,7 @@ public class RamBeater extends Robot
 			clockwise = false;
 		else
 			clockwise = true;
+		goTo(previousX,previousY);
 	}
 
 	/**
@@ -131,7 +134,7 @@ public class RamBeater extends Robot
 		if(x == getBattleFieldWidth() - DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
 			goTo(DISTANCE_FROM_WALL, DISTANCE_FROM_WALL);
 		}
-	}
+	}	
 
 	/*
 	 * Finds the corner the robot is closest to and moves there
@@ -165,6 +168,8 @@ public class RamBeater extends Robot
 	}*/
 
 	private void goTo(double destinationX, double destinationY) {
+		previousX = getX();
+		previousY = getY();
 		destinationX -= getX();
 		destinationY -= getY();
 		double angle = robocode.util.Utils.normalRelativeAngle(Math.atan2(destinationX, destinationY) - Math.toRadians(getHeading()) );
