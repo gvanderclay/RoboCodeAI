@@ -36,6 +36,7 @@ public class RamBeater extends Robot
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 		// Robot main loop
 		while(true) {
+			goClockWise();
 			//Change Color
 			randomColors();
 			// Replace the next 4 lines with any behavior you would like
@@ -116,9 +117,14 @@ public class RamBeater extends Robot
 		back(20);
 	}
 
+
 	public void goClockWise(){
-		double x = getX();
-		double y = getY();
+		int x = (int) getX();
+		x = roundToNearestHundred(x);
+		int y = (int) getY();
+		y = roundToNearestHundred(y);
+		System.out.println("Ayy: " + x + "," + y);
+
 		if(x == DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
 			goTo(DISTANCE_FROM_WALL, getBattleFieldHeight() - DISTANCE_FROM_WALL);
 		}
@@ -135,6 +141,37 @@ public class RamBeater extends Robot
 			goTo(DISTANCE_FROM_WALL, DISTANCE_FROM_WALL);
 		}
 	}	
+
+
+	public void goCounterClockWise(){
+		int x = (int) getX();
+		x = roundToNearestHundred(x);
+		int y = (int) getY();
+		y = roundToNearestHundred(y);
+		System.out.println("Ayy: " + x + "," + y);
+
+		if(x == DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
+			goTo(getBattleFieldWidth() - DISTANCE_FROM_WALL, DISTANCE_FROM_WALL);
+		}
+		if(x == DISTANCE_FROM_WALL &&
+				y == getBattleFieldHeight() - DISTANCE_FROM_WALL){
+			goTo(DISTANCE_FROM_WALL, DISTANCE_FROM_WALL);
+		}
+		if(x == getBattleFieldWidth() - DISTANCE_FROM_WALL &&
+				y == getBattleFieldHeight() - DISTANCE_FROM_WALL){
+			goTo(DISTANCE_FROM_WALL,
+					getBattleFieldHeight() - DISTANCE_FROM_WALL);
+		}
+		if(x == getBattleFieldWidth() - DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
+			goTo(getBattleFieldWidth() - DISTANCE_FROM_WALL,
+					getBattleFieldHeight() - DISTANCE_FROM_WALL);
+		}
+	}
+
+
+	public int roundToNearestHundred(int n){
+		return (n + 50) / 100 * 100;
+	}
 
 	/*
 	 * Finds the corner the robot is closest to and moves there
