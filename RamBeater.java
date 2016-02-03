@@ -26,7 +26,6 @@ public class RamBeater extends Robot
 		// After trying out your robot, try uncommenting the import at the top,
 		// and the next line:
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
-
 		// Robot main loop
 		while(true) {
 			//Change Color
@@ -76,11 +75,11 @@ public class RamBeater extends Robot
 	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
 		// Replace the next line with any behavior you would like
-		fire(1);
+		//fire(1);
 		
 
 
-		scan();
+		//scan();
 	}
 
 	/**
@@ -99,6 +98,9 @@ public class RamBeater extends Robot
 		back(20);
 	}
 
+	/*
+	 * Finds the corner the robot is closest to and moves there
+	 */
 	private void findClosestCorner(){
 		double xCoordinate = getX();
 		double yCoordinate = getY();
@@ -112,6 +114,14 @@ public class RamBeater extends Robot
 		if(yCoordinate >= arenaHeight /2){
 			yDestination = arenaHeight - 63;
 		}
-
+		goTo(xDestination,yDestination);
 	}
+	
+private void goTo(double x, double y) {
+    double a;
+    turnRight(Math.tan(
+        a = Math.atan2(x -= getX(), y -= getY()) 
+              - (getHeading() * (Math.PI / 180))) * (180 / Math.PI));
+    ahead(Math.hypot(x, y) * Math.cos(a));
+}
 }
