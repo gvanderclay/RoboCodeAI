@@ -36,7 +36,6 @@ public class RamBeater extends Robot
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 		// Robot main loop
 		while(true) {
-			goClockWise();
 			//Change Color
 			randomColors();
 			// Replace the next 4 lines with any behavior you would like
