@@ -83,21 +83,19 @@ public class RamBeater extends Robot
 	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
 		// Replace the next line with any behavior you would like
-		fire(1);
+		fire(3);
 		
-		if(clockwise){
-			goClockWise();
-		}else{
-			goCounterClockWise();
-		}
+		goInCircle();
 	}
 	
-	public void HitRobotEvent(ScannedRobotEvent e){
+	public void onHitRobot(HitRobotEvent e){
 		if(clockwise)
 			clockwise = false;
 		else
 			clockwise = true;
+		System.out.println("hitbyrobot");
 		goTo(previousX,previousY);
+		goInCircle();
 	}
 
 	/**
@@ -105,7 +103,6 @@ public class RamBeater extends Robot
 	 */
 	public void onHitByBullet(HitByBulletEvent e) {
 		// Replace the next line with any behavior you would like
-		back(10);
 	}
 	
 	/**
@@ -117,13 +114,20 @@ public class RamBeater extends Robot
 	}
 
 
+	public void goInCircle(){
+		if(clockwise){
+			goClockWise();
+		}
+		else{
+			goCounterClockWise();
+		}
+	}
+
 	public void goClockWise(){
 		int x = (int) getX();
 		x = roundToNearestHundred(x);
 		int y = (int) getY();
 		y = roundToNearestHundred(y);
-		System.out.println("Ayy: " + x + "," + y);
-
 		if(x == DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
 			goTo(DISTANCE_FROM_WALL, getBattleFieldHeight() - DISTANCE_FROM_WALL);
 		}
@@ -147,7 +151,6 @@ public class RamBeater extends Robot
 		x = roundToNearestHundred(x);
 		int y = (int) getY();
 		y = roundToNearestHundred(y);
-		System.out.println("Ayy: " + x + "," + y);
 
 		if(x == DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
 			goTo(getBattleFieldWidth() - DISTANCE_FROM_WALL, DISTANCE_FROM_WALL);
@@ -182,16 +185,19 @@ public class RamBeater extends Robot
 		double arenaHeight = getBattleFieldHeight();
 		double xDestination = DISTANCE_FROM_WALL;
 		double yDestination = DISTANCE_FROM_WALL;
+		previousX = arenaWidth - DISTANCE_FROM_WALL;
+		previousY = arenaHeight - DISTANCE_FROM_WALL;
 		if(xCoordinate >= arenaWidth / 2){
 			xDestination = arenaWidth - DISTANCE_FROM_WALL;
+			previousX = DISTANCE_FROM_WALL;
 		}
 		if(yCoordinate >= arenaHeight /2){
 			yDestination = arenaHeight - DISTANCE_FROM_WALL;
+			previousY = DISTANCE_FROM_WALL;
 		}
-		System.out.println("current: " + xCoordinate + "," + yCoordinate);
-		System.out.println("destination: " + xDestination + "," + yDestination);
+		previousX = yDestination;
+		previousY = xDestination;
 		goTo(xDestination,yDestination);
-		System.out.println("newcurrent: " + getX() + "," + getY());
 	}
 
 
@@ -210,7 +216,6 @@ public class RamBeater extends Robot
 		destinationY -= getY();
 		double angle = robocode.util.Utils.normalRelativeAngle(Math.atan2(destinationX, destinationY) - Math.toRadians(getHeading()) );
 		double turnAngle = Math.atan(Math.tan(angle));
-
 		turnRight(Math.toDegrees(turnAngle));
 		ahead(Math.hypot(destinationX, destinationY) * (angle == turnAngle ? 1 : -1));
 	}
