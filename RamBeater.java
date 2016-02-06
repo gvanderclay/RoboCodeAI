@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * RamBeater 
-* @author: Gage Vander Clay & Mitch Couturier
+* @Author: Gage Vander Clay & Mitch Couturier
  */
 
 
@@ -89,21 +89,11 @@ public class RamBeater extends Robot
 	}
 	
 	public void onHitRobot(HitRobotEvent e){
-		if(clockwise)
-			clockwise = false;
-		else
-			clockwise = true;
-		System.out.println("hitbyrobot");
+		clockwise = !clockwise;
 		goTo(previousX,previousY);
 		goInCircle();
 	}
 
-	/**
-	 * onHitByBullet: What to do when you're hit by a bullet
-	 */
-	public void onHitByBullet(HitByBulletEvent e) {
-		// Replace the next line with any behavior you would like
-	}
 	
 	/**
 	 * onHitWall: What to do when you hit a wall
@@ -131,17 +121,20 @@ public class RamBeater extends Robot
 		if(x == DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
 			goTo(DISTANCE_FROM_WALL, getBattleFieldHeight() - DISTANCE_FROM_WALL);
 		}
-		if(x == DISTANCE_FROM_WALL &&
+		else if(x == DISTANCE_FROM_WALL &&
 				y == getBattleFieldHeight() - DISTANCE_FROM_WALL){
 			goTo(getBattleFieldWidth() - DISTANCE_FROM_WALL,
 					getBattleFieldHeight() - DISTANCE_FROM_WALL);
 		}
-		if(x == getBattleFieldWidth() - DISTANCE_FROM_WALL &&
+		else if(x == getBattleFieldWidth() - DISTANCE_FROM_WALL &&
 				y == getBattleFieldHeight() - DISTANCE_FROM_WALL){
 			goTo(getBattleFieldWidth() - DISTANCE_FROM_WALL,DISTANCE_FROM_WALL);
 		}
-		if(x == getBattleFieldWidth() - DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
+		else if(x == getBattleFieldWidth() - DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
 			goTo(DISTANCE_FROM_WALL, DISTANCE_FROM_WALL);
+		}
+		else{
+			findClosestCorner();
 		}
 	}	
 
@@ -155,18 +148,21 @@ public class RamBeater extends Robot
 		if(x == DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
 			goTo(getBattleFieldWidth() - DISTANCE_FROM_WALL, DISTANCE_FROM_WALL);
 		}
-		if(x == DISTANCE_FROM_WALL &&
+		else if(x == DISTANCE_FROM_WALL &&
 				y == getBattleFieldHeight() - DISTANCE_FROM_WALL){
 			goTo(DISTANCE_FROM_WALL, DISTANCE_FROM_WALL);
 		}
-		if(x == getBattleFieldWidth() - DISTANCE_FROM_WALL &&
+		else if(x == getBattleFieldWidth() - DISTANCE_FROM_WALL &&
 				y == getBattleFieldHeight() - DISTANCE_FROM_WALL){
 			goTo(DISTANCE_FROM_WALL,
 					getBattleFieldHeight() - DISTANCE_FROM_WALL);
 		}
-		if(x == getBattleFieldWidth() - DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
+		else if(x == getBattleFieldWidth() - DISTANCE_FROM_WALL && y == DISTANCE_FROM_WALL){
 			goTo(getBattleFieldWidth() - DISTANCE_FROM_WALL,
 					getBattleFieldHeight() - DISTANCE_FROM_WALL);
+		}
+		else{
+			findClosestCorner();
 		}
 	}
 
@@ -195,8 +191,8 @@ public class RamBeater extends Robot
 			yDestination = arenaHeight - DISTANCE_FROM_WALL;
 			previousY = DISTANCE_FROM_WALL;
 		}
-		previousX = yDestination;
-		previousY = xDestination;
+		previousX = xCoordinate;
+		previousY = yCoordinate;
 		goTo(xDestination,yDestination);
 	}
 
