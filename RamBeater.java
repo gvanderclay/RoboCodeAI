@@ -99,8 +99,7 @@ public class RamBeater extends Robot
 	 * onHitWall: What to do when you hit a wall
 	 */
 	public void onHitWall(HitWallEvent e) {
-		// Replace the next line with any behavior you would like
-		back(20);
+		findClosestCorner();
 	}
 
 
