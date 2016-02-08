@@ -1,13 +1,12 @@
 package RoboCodeAI;
 import robocode.*;
 import java.awt.Color;
-import java.util.Random;
 
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
 /**
  * RamBeater 
-* @Author: Gage Vander Clay & Mitch Couturier
+ * @Author: Gage Vander Clay & Mitch Couturier
  */
 
 
@@ -20,29 +19,22 @@ public class RamBeater extends Robot
 	double previousX;
 	double previousY;
 
-	Random rn;
 	int color;
 	/**
 	 * run: RamBeater's default behavior
 	 */
 	public void run() {
-		findClosestCorner();
-		clockwise = true;
-		// Initialization of the robot should be put here
-		rn = new Random();
+		// Initialization of the robot
 		color = 0;
-		// After trying out your robot, try uncommenting the import at the top,
-		// and the next line:
-		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
+		clockwise = true;
+		// Get to the closest corner
+		findClosestCorner();
 		// Robot main loop
 		while(true) {
 			//Change Color
 			randomColors();
-			// Replace the next 4 lines with any behavior you would like
-			//ahead(100);
+			//Find the enemy again
 			turnGunRight(10);
-			//back(100);
-			//turnGunRight(360);
 		}
 	}
 	
@@ -82,7 +74,6 @@ public class RamBeater extends Robot
 	 * onScannedRobot: What to do when you see another robot
 	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
-		// Replace the next line with any behavior you would like
 		fire(3);
 		
 		goInCircle();
@@ -195,15 +186,9 @@ public class RamBeater extends Robot
 		goTo(xDestination,yDestination);
 	}
 
-
-/*	private void goTo(double x, double y) {
-		double a;
-		turnRight(Math.tan(
-			a = Math.atan2(x -= getX(), y -= getY())
-				  - (getHeading() * (Math.PI / 180))) * (180 / Math.PI));
-		ahead(Math.hypot(x, y) * Math.cos(a));
-	}*/
-
+	/*
+	 * Moves the robot to a specific coordinate on the map
+	 */
 	private void goTo(double destinationX, double destinationY) {
 		previousX = getX();
 		previousY = getY();
